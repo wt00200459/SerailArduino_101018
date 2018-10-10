@@ -19,7 +19,7 @@ namespace SerialArduinoNano
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
             string[] ports = SerialPort.GetPortNames();
             listBox1.Items.Clear();
@@ -82,5 +82,14 @@ namespace SerialArduinoNano
                 button3.Enabled = false;
             }
         }
+
+        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            SerialPort sp = (SerialPort)sender;
+            string str = sp.ReadExisting();
+            Console.WriteLine(str);
+        }
+
+     
     }
 }

@@ -42,15 +42,19 @@
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // serialPort1
+            // 
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(12, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(249, 23);
             this.button1.TabIndex = 0;
-            this.button1.Text = "List Serial Port";
+            this.button1.Text = "List SerialPort";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // listBox1
             // 

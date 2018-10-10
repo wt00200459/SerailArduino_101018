@@ -17,6 +17,8 @@ namespace SerialArduinoNano
         public Form1()
         {
             InitializeComponent();
+            //4.use delegate function in form because Form1 will run one time
+            //after Run Program
             myDelegate = new AddDataDelegate(AddData);
         }
 
@@ -61,6 +63,7 @@ namespace SerialArduinoNano
         {
             if (serialPort1.IsOpen == true)
             {
+                
                 return;
             } else
             {
@@ -89,16 +92,17 @@ namespace SerialArduinoNano
             SerialPort sp = (SerialPort)sender;
             string str = sp.ReadExisting();
             Console.WriteLine(str);
-            textBox1.AppendText(str);//cross thread problem
+            textBox1.Invoke(myDelegate, str);//cross thread problem
 
         }
-        //declare delegate 
+        //1.declare delegate 
         public void AddData(string str)
         {
             textBox1.AppendText(str);
         }
-        //define delegate
+        //2.define delegate
         public delegate void AddDataDelegate(string str);
+        //3.create delegate ref
         public AddDataDelegate myDelegate;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {

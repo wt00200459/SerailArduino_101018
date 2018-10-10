@@ -21,7 +21,9 @@ namespace SerialArduinoNano
         private void button1_Click(object sender, EventArgs e)
         {
             string[] ports = SerialPort.GetPortNames();
+            listBox1.Items.Clear();
             listBox1.Items.AddRange(ports);
+
             
         }
     }

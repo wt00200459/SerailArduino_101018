@@ -6,17 +6,18 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO.Ports;
 using System.Windows.Forms;
 
 namespace SerialArduinoNano
-{using System.IO.Ports;
+{
     public partial class Form1 : Form
     {
-       
+
         public Form1()
         {
             InitializeComponent();
+            myDelegate = new AddDataDelegate(AddData);
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -26,7 +27,7 @@ namespace SerialArduinoNano
             listBox1.Items.AddRange(ports);
             comboBox1.Items.Clear();
             comboBox1.Items.AddRange(ports);
-            
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -39,7 +40,7 @@ namespace SerialArduinoNano
 
         }
 
-   
+
 
         private void label2_Click_1(object sender, EventArgs e)
         {
@@ -61,7 +62,7 @@ namespace SerialArduinoNano
             if (serialPort1.IsOpen == true)
             {
                 return;
-            }else
+            } else
             {
                 serialPort1.Open();
                 button2.Enabled = false;
@@ -75,7 +76,7 @@ namespace SerialArduinoNano
             {
                 return;
 
-            }else
+            } else
             {
                 serialPort1.Close();
                 button2.Enabled = true;
@@ -88,8 +89,20 @@ namespace SerialArduinoNano
             SerialPort sp = (SerialPort)sender;
             string str = sp.ReadExisting();
             Console.WriteLine(str);
-        }
+            textBox1.AppendText(str);//cross thread problem
 
-     
+        }
+        //declare delegate 
+        public void AddData(string str)
+        {
+            textBox1.AppendText(str);
+        }
+        //define delegate
+        public delegate void AddDataDelegate(string str);
+        public AddDataDelegate myDelegate;
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

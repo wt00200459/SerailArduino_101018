@@ -92,6 +92,7 @@ namespace SerialArduinoNano
             SerialPort sp = (SerialPort)sender;
             string str = sp.ReadExisting();
             Console.WriteLine(str);
+            //5.invoke dalegate
             textBox1.Invoke(myDelegate, str);//cross thread problem
 
         }
